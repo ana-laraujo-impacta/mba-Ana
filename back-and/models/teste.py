@@ -1,4 +1,11 @@
-[
+from flask import Flask
+from flask_bcrypt import Bcrypt
+import json
+
+app = Flask(__name__)
+bcrypt = Bcrypt(app)
+
+users = [
     {
         "nome": "Ana",
         "sobrenome": "Lima",
@@ -8,8 +15,7 @@
         "Bairro": "jardins",
         "Endereco": "Rua e numero",
         "Email": "ana@email.com",
-        "Senha": "$2b$12$J7F9Dp7djQhZVYVQctL/2OdY4hcabM5ctJpYPCk9lfww5oqrG.rLW",
-        "pet_sitter": "Falso"
+        "Senha": bcrypt.generate_password_hash("789456").decode('utf-8')
     },
     {
         "nome": "Lucas",
@@ -20,7 +26,11 @@
         "Bairro": "jardins",
         "Endereco": "Rua e numero",
         "Email": "lucas@email.com",
-        "Senha": "$2b$12$M3DHI3WLjrCnDFzH9sZE6emDPtSNOAsDjZse7AoN3SoJtGZXBFKX.",
-        "pet_sitter": "Falso"
+        "Senha": bcrypt.generate_password_hash("123456").decode('utf-8')
     }
 ]
+
+with open('cadastro_user.json', 'w') as file:
+    json.dump(users, file, indent=4)
+
+print("Senhas hashadas e salvas com sucesso!")
