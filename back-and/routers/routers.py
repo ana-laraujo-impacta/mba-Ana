@@ -1,6 +1,6 @@
 ##todas as rotas aqui
 from flask import Blueprint, request, jsonify
-from Controllers.login_sitter import AuthController
+from Controllers.login import AuthController
 
 auth_blueprint = Blueprint('auth', __name__)
 auth_controller = AuthController()
