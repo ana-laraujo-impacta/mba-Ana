@@ -1,0 +1,23 @@
+[{
+    "nome": "Ana",
+    "sobrenome":"Lima",
+    "cpf": "01102203345",
+    "telefone":"11 992208331",
+    "Cidade": "Sao paulo",
+    "Bairro":"jardins",
+    "Endereco":"Rua e numero",
+    "Email": "ana@email.com",
+    "Senha": "******"
+},
+{
+    "nome": "Lucas",
+    "sobrenome":"Oliveira",
+    "cpf": "01102203345",
+    "telefone":"68 992208331",
+    "Cidade": "Sao paulo",
+    "Bairro":"jardins",
+    "Endereco":"Rua e numero",
+    "Email": "lucas@email.com",
+    "Senha": "******"
+}
+]
