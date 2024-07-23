@@ -12,6 +12,8 @@ class AuthController:
 
     def login(self, email, password):
         user = self.users_collection.find_one({"email": email})
+        if not user:
+            return {'message': 'Email não cadastrado. Por favor, faça o cadastro.'}, 404
         if user and self.bcrypt.check_password_hash(user['senha'], password):
             return {'message': 'Login bem-sucedido!'}, 200
         return {'message': 'Credenciais inválidas!'}, 401
