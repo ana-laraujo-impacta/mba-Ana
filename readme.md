@@ -19,9 +19,9 @@ Endpoint: POST /change-password
 POST http://localhost:7000/change-password
 
 {
-  "Email": "ana@email.com",
-  "SenhaAtual": "789456",
-  "NovaSenha": "novasenha789"
+  "email": "ana.santos101110@example.com",
+  "current_password": "senha123",
+  "new_password": "senha1234"
 }
 
 **Endpoint:** `FAQ`

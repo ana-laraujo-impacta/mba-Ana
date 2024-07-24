@@ -29,7 +29,7 @@ user_cadastro_controller = UserCadastroController(db)
 def login():
     data = request.json
     email = data.get('email')
-    password = data.get('password')
+    password = data.get('senha')
     response, status = auth_controller.login(email, password)
     return jsonify(response), status
 
