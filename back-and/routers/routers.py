@@ -4,6 +4,7 @@ from flask import Blueprint, request, jsonify
 from Controllers.login import AuthController
 from Controllers.perguntas_frequentes import FaqController
 from Controllers.pesquisa import UserController
+from Controllers.cadastro_user import UserCadastroController
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import certifi
@@ -22,6 +23,7 @@ db = client[database_name]
 auth_controller = AuthController(db)
 faq_controller = FaqController(db)
 user_controller = UserController(db)
+user_cadastro_controller = UserCadastroController(db)
 
 @auth_blueprint.route('/login', methods=['POST'])
 def login():
@@ -55,10 +57,49 @@ def add_faq():
 
 @user_blueprint.route('/search-users', methods=['GET'])
 def search_users():
-    latitude = float(request.args.get('latitude'))
-    longitude = float(request.args.get('longitude'))
-    cidade = request.args.get('cidade')
-    bairro = request.args.get('bairro')
-    response, status = user_controller.search_users_by_location(latitude, longitude, cidade, bairro)
+    cidade = request.args.get('cidade', '').strip()
+    bairro = request.args.get('bairro', '').strip()
+    print(f"Recebido na URL - Cidade: {cidade}, Bairro: {bairro}")  # Debugging
+    
+    if cidade and bairro:
+        response, status = user_controller.search_users_by_location(cidade=cidade, bairro=bairro)
+    elif cidade:
+        response, status = user_controller.search_users_by_location(cidade=cidade)
+    elif bairro:
+        response, status = user_controller.search_users_by_location(bairro=bairro)
+    else:
+        response, status = user_controller.search_users_by_location()
+
+    # response, status = user_controller.search_users_by_location(cidade=cidade, bairro=bairro)
     return response, status
 
+@user_blueprint.route('/users', methods=['GET'])
+def get_all_users():
+    response, status = user_controller.get_all_users()
+    return response, status
+
+@user_blueprint.route('/register', methods=['POST'])
+def register():
+    data = request.json
+    required_fields = ['nome', 'sob_nome', 'cpf', 'telefone', 'email', 'senha', 'rua', 'numero', 'bairro', 'complemento', 'cidade', 'cep', 'tp_cad']
+    
+    # Verificar se todos os campos obrigatórios estão presentes
+    if not all(field in data for field in required_fields):
+        return jsonify({'message': 'Faltam campos obrigatórios!'}), 400
+    
+    nome = data['nome']
+    sob_nome = data['sob_nome']
+    cpf = data['cpf']
+    telefone = data['telefone']
+    email = data['email']
+    senha = data['senha']
+    rua = data['rua']
+    numero = data['numero']
+    bairro = data['bairro']
+    complemento = data['complemento']
+    cidade = data['cidade']
+    cep = data['cep']
+    tp_cad = data['tp_cad']
+
+    response, status = user_cadastro_controller.register(nome, sob_nome, cpf, telefone, email, senha, rua, numero, bairro, complemento, cidade, cep, tp_cad)
+    return jsonify(response), status
