@@ -5,6 +5,7 @@ from Controllers.login import AuthController
 from Controllers.perguntas_frequentes import FaqController
 from Controllers.pesquisa import UserController
 from Controllers.cadastro_user import UserCadastroController
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import certifi
@@ -18,6 +19,8 @@ user_blueprint = Blueprint('user', __name__)
 mongodb_uri = os.getenv("MONGODB_URL")
 client = MongoClient(mongodb_uri, tlsCAFile=certifi.where())
 database_name = os.getenv("DATABASE_NAME")
+
+
 db = client[database_name]
 
 auth_controller = AuthController(db)
@@ -34,6 +37,7 @@ def login():
     return jsonify(response), status
 
 @auth_blueprint.route('/change-password', methods=['POST'])
+@jwt_required()
 def change_password():
     data = request.json
     email = data.get('email')
@@ -56,6 +60,7 @@ def add_faq():
     return response, status
 
 @user_blueprint.route('/search-users', methods=['GET'])
+@jwt_required()
 def search_users():
     cidade = request.args.get('cidade', '').strip()
     bairro = request.args.get('bairro', '').strip()
@@ -72,6 +77,7 @@ def search_users():
 
     # response, status = user_controller.search_users_by_location(cidade=cidade, bairro=bairro)
     return response, status
+
 
 @user_blueprint.route('/users', methods=['GET'])
 def get_all_users():
@@ -102,4 +108,12 @@ def register():
     tp_cad = data['tp_cad']
 
     response, status = user_cadastro_controller.register(nome, sob_nome, cpf, telefone, email, senha, rua, numero, bairro, complemento, cidade, cep, tp_cad)
+    return jsonify(response), status
+
+@user_blueprint.route('/update-user/<user_id>', methods=['PUT'])
+@jwt_required()
+def update_user(user_id):
+    current_user_email = get_jwt_identity()
+    update_data = request.json
+    response, status = user_cadastro_controller.update_user(current_user_email, user_id, update_data)
     return jsonify(response), status

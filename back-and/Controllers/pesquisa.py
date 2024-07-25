@@ -1,6 +1,7 @@
 ##get(especificar o bairro e a cidade[end points])
 ##endpoint: /pesquisa/bairro/cidade
 ##ana
+from flask_jwt_extended import jwt_required
 
 from flask import jsonify
 import unicodedata
@@ -23,7 +24,8 @@ class UserController:
                 'bairro': user.get('bairro')
             })
         return jsonify(result), 200
-
+    
+    @jwt_required()
     def search_users_by_location(self, cidade=None, bairro=None):
             query = {
                 'tp_cad': {'$in': [2, 3]}

@@ -1,5 +1,7 @@
 from flask import Flask
 from routers.routers import auth_blueprint, user_blueprint
+from flask_jwt_extended import JWTManager
+import os
 
 
 app = Flask(__name__)
@@ -7,6 +9,8 @@ app = Flask(__name__)
 # Registrar o blueprint
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(user_blueprint)
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+jwt = JWTManager(app)
 
 @app.route('/')
 def home():
