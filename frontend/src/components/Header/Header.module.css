@@ -1,0 +1,41 @@
+.header {
+    background: var(--white);
+    height: 96px;
+    border-bottom: 1px solid #D7D7DD;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+
+    button {
+        cursor: pointer;
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.link {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}

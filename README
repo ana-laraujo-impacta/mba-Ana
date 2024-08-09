@@ -1,0 +1,47 @@
+# Conexão Pet - MBA ES_27 GRUPO 2
+
+## Descrição do Projeto
+
+## Instruções de Compilação e Execução
+
+### Rodando o back-end
+
+**Pré requisitos**
+
+- Python: 3.12.4
+
+# Ativar o ambiente virtual
+
+.\pythonvirtual\Scripts\activate
+
+# Instalar flask-bcrypt
+
+pip install flask-bcrypt
+
+# Verificar se flask-bcrypt está instalado
+
+pip show flask-bcrypt
+
+# Adicionar flask-bcrypt ao requirements.txt (se necessário)
+
+# Instalar dependências
+
+pip install -r requirements.txt
+
+# Executar o aplicativo
+
+python app.py
+
+### Rodando o front-end
+
+**Pré requisitos**
+
+- Node.Js: V20.15.1
+
+# Instalar dependências
+
+npm i
+
+# Executar o aplicativo
+
+npm run dev

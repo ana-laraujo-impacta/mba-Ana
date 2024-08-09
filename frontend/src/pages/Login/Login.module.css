@@ -1,0 +1,67 @@
+.container {
+  max-width: 537px;
+  padding: 24px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  p {
+    padding-bottom: 1rem;
+  }
+}
+
+.logo {
+  width: 246px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forgotPassword {
+  color: var(--cyan-500);
+  font-weight: bold;
+  display: block;
+  text-align: start;
+}
+
+.forgotPassword:hover {
+  color: rgba(2, 187, 194, 0.5);
+  text-decoration: underline;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.separator span {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.separator span:before {
+  content: "ou";
+  padding: 0 10px;
+  background: white;
+  color: #ccc;
+}
+
+.createAccount {
+  background-color: #e0e0e0;
+  color: black;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.createAccount:hover {
+  background-color: #d5d5d5;
+}

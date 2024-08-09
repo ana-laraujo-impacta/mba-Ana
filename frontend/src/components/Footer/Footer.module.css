@@ -1,0 +1,38 @@
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1px solid #D7D7DD;
+}
+
+.logoFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+
+}
+
+.copyright p {
+    color: var(--black);
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.footerLinks {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 56%;
+}
+
+.footerLinks h3 {
+    color: var(--pink-500);
+}
+
+.footerLinks a {
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -1,7 +1,3 @@
-
-pythonvirtual
-.env
-
 # Logs
 logs
 *.log

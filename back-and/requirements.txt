@@ -1,6 +1,0 @@
-Flask
-pymongo
-flask-bcrypt
-python-dotenv
-bson
-Flask-JWT-Extended
