@@ -77,16 +77,16 @@ class ImagensPerfilController:
 
         if foto_perfil:
             perfil_path = f"{cpf}/perfil/{foto_perfil.filename}"
-            foto_url = upload_to_s3(foto_perfil, 'bucket-s3-pets', perfil_path)
-            delete_from_s3('bucket-s3-pets', imagens_perfil['foto_perfil'].split('.com/')[1])
+            foto_url = upload_to_s3(foto_perfil, 'bucket-s3-pets-v1', perfil_path)
+            delete_from_s3('bucket-s3-pets-v1', imagens_perfil['foto_perfil'].split('.com/')[1])
             update_fields['foto_perfil'] = foto_url
 
         if fotos_pets:
             fotos_urls = []
             for foto in fotos_pets:
                 pet_path = f"{cpf}/{foto.filename}"
-                foto_pet_url = upload_to_s3(foto, 'bucket-s3-pets', pet_path)
-                delete_from_s3('bucket-s3-pets', foto_pet_url.split('.com/')[1])
+                foto_pet_url = upload_to_s3(foto, 'bucket-s3-pets-v1', pet_path)
+                delete_from_s3('bucket-s3-pets-v1', foto_pet_url.split('.com/')[1])
                 fotos_urls.append(foto_pet_url)
             update_fields['fotos_pets'] = fotos_urls
 
@@ -103,11 +103,11 @@ class ImagensPerfilController:
             return {'message': 'Cadastro complementar não encontrado!'}, 404
 
         if tipo_imagem == 'perfil' and imagens_perfil['foto_perfil'] == imagem_url:
-            delete_from_s3('bucket-s3-pets', imagem_url.split('.com/')[1])
+            delete_from_s3('bucket-s3-pets-v1', imagem_url.split('.com/')[1])
             self.imagens_perfil.update_one({'cpf': cpf}, {'$unset': {'foto_perfil': ""}})
             return {'message': 'Imagem de perfil deletada com sucesso!'}, 200
         elif tipo_imagem == 'pet' and imagem_url in imagens_perfil['fotos_pets']:
-            delete_from_s3('bucket-s3-pets', imagem_url.split('.com/')[1])
+            delete_from_s3('bucket-s3-pets-v1', imagem_url.split('.com/')[1])
             self.imagens_perfil.update_one({'cpf': cpf}, {'$pull': {'fotos_pets': imagem_url}})
             return {'message': 'Imagem de pet deletada com sucesso!'}, 200
         else:
@@ -121,7 +121,7 @@ class ImagensPerfilController:
             return {'message': 'Perfil não encontrado!'}, 404
 
         # Deletar a pasta do usuário no bucket S3
-        delete_folder_from_s3('bucket-s3-pets', f"{cpf}/")
+        delete_folder_from_s3('bucket-s3-pets-v1', f"{cpf}/")
 
         # Deletar o registro no banco de dados
         result = self.imagens_perfil.delete_one({'cpf': cpf})

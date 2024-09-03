@@ -22,12 +22,12 @@ def imagens_perfil():
         return {'message': 'Faltando imagem de perfil ou fotos de pets!'}, 400
 
     perfil_path = f"{cpf}/perfil/{foto_perfil.filename}"
-    foto_url = upload_to_s3(foto_perfil, 'bucket-s3-pets', perfil_path)
+    foto_url = upload_to_s3(foto_perfil, 'bucket-s3-pets-v1', perfil_path)
 
     fotos_urls = []
     for i, foto in enumerate(fotos_pets):
         pet_path = f"{cpf}/{foto.filename}"
-        foto_pet_url = upload_to_s3(foto, 'bucket-s3-pets', pet_path)
+        foto_pet_url = upload_to_s3(foto, 'bucket-s3-pets-v1', pet_path)
         fotos_urls.append(foto_pet_url)
 
     print(foto_pet_url)
