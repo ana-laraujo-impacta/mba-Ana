@@ -7,7 +7,6 @@ class CadastroComplementarController:
         self.db = db
         self.cad_complementar = self.db['comp_usuario']
 
-    @jwt_required()
     def create_complementar(self, cpf, email, nome_emergencia, tipo_pet, tipo_cuidado, bio_msg, tb_cap):
         complementar_data = create_complementar_data(cpf, email, nome_emergencia, tipo_pet, tipo_cuidado, bio_msg, tb_cap)
         result = self.cad_complementar.insert_one(complementar_data)

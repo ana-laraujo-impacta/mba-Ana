@@ -8,7 +8,6 @@ cadastro_complementar_blueprint = Blueprint('complementar', __name__)
 cadastro_complementar_controller = CadastroComplementarController(db)
 
 @cadastro_complementar_blueprint.route('/complementar', methods=['POST'])
-@jwt_required()
 def create_complementar():
     data = request.json
     cpf = data.get('cpf')

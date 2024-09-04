@@ -9,7 +9,6 @@ imagens_perfil_blueprint = Blueprint('imagens', __name__)
 imagens_perfil_controller = ImagensPerfilController(db)
 
 @imagens_perfil_blueprint.route('/imagens_perfil', methods=['POST'])
-@jwt_required()
 def imagens_perfil():
     data = request.form
     cpf = data.get('cpf')

@@ -33,7 +33,6 @@ class ImagensPerfilController:
         self.db = db
         self.imagens_perfil = self.db['imagens_perfil']
 
-    @jwt_required()
     def create_imagens_perfil(self, cpf, email, foto_perfil_url, fotos_pets_urls):
         imagens_data = {
             'cpf': cpf,
